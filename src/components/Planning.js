@@ -1,5 +1,6 @@
 import React, { useState }  from 'react';
 import classNames from 'classnames';
+import { Redirect } from 'react-router';
 import './planning.css';
 
 function validate(name, value) {
@@ -37,7 +38,9 @@ function validate(name, value) {
       return false;
   } 
 }
-function Plannig() {
+function Plannig(props) {
+  const [redirectId, setRedirect] = useState(false);
+
   const [values, setValues] = useState({
     isSubmitted: false,
     sessionName: {
@@ -94,61 +97,73 @@ function Plannig() {
   const submit = (evt) => {
     evt.preventDefault();
     if (isFormValid()) {
+      const stories = values.stories.value.split('\n');
+      const obj = {
+        sessionName: values.sessionName.value,
+        voterCount: values.voterCount.value,
+        stories
+      };
+      props.saveToDB(obj)
+            .then((res) => setRedirect(res.id))
+            .catch(() => alert('there is another session with same name'));
     } else {
       showErrors();
     };
   }
   return (
-    <form className="ty-planning" onSubmit={submit}>
-      <div className="ty-planning-top">
-        <span>Session Name</span>
-        
-        <div className="ty-planning__input-container">
-          <input name="sessionName" onChange={handleInputChange}
-            className="ty-planning__input" value={values.sessionName.value}></input>
-          <div className={
-            classNames({ 
-              'ty-planning__input--error': true, 
-              'ty-planning__input--error--active': (values.isSubmitted || !values.sessionName.isPristine) && !values.sessionName.isValid
-              }
-            )}>
-            This area's length should be least 1 and maximum 200 char.
+    <>
+      {redirectId && <Redirect to={`/master/${redirectId}`} />}
+      <form className="ty-planning" onSubmit={submit}>
+        <div className="ty-planning-top">
+          <span>Session Name</span>
+          
+          <div className="ty-planning__input-container">
+            <input name="sessionName" onChange={handleInputChange}
+              className="ty-planning__input" value={values.sessionName.value}></input>
+            <div className={
+              classNames({ 
+                'ty-planning__input--error': true, 
+                'ty-planning__input--error--active': (values.isSubmitted || !values.sessionName.isPristine) && !values.sessionName.isValid
+                }
+              )}>
+              This area's length should be least 1 and maximum 200 char.
+            </div>
+          </div>
+          <span>Numbers of Voters</span>
+          <div className="ty-planning__input-container">
+          <input name="voterCount" onChange={handleInputChange}
+            className="ty-planning__input" value={values.voterCount.value}></input>
+            <div className={
+              classNames({ 
+                'ty-planning__input--error': true, 
+                'ty-planning__input--error--active': (values.isSubmitted || !values.voterCount.isPristine) && !values.voterCount.isValid
+                }
+              )}>            
+                This area's value should be valid number.
+            </div>
           </div>
         </div>
-        <span>Numbers of Voters</span>
-        <div className="ty-planning__input-container">
-        <input name="voterCount" onChange={handleInputChange}
-          className="ty-planning__input" value={values.voterCount.value}></input>
-          <div className={
-            classNames({ 
-              'ty-planning__input--error': true, 
-              'ty-planning__input--error--active': (values.isSubmitted || !values.voterCount.isPristine) && !values.voterCount.isValid
-              }
-            )}>            
-              This area's value should be valid number.
-          </div>
-        </div>
-      </div>
-      <div>
-        <div>Post Your Story List</div>
-        <div className="ty-planning__story-list">
-          <textarea rows="10" name="stories" onChange={handleInputChange} value={values.stories.value} className="ty-planing__story-list--input" >
-          </textarea>
+        <div>
+          <div>Post Your Story List</div>
+          <div className="ty-planning__story-list">
+            <textarea rows="10" name="stories" onChange={handleInputChange} value={values.stories.value} className="ty-planing__story-list--input" >
+            </textarea>
 
-          <div className={
-            classNames({ 
-              'ty-planning__input--error': true, 
-              'ty-planning__input--error--active': (values.isSubmitted || !values.stories.isPristine) && !values.stories.isValid
-              }
-            )}>            
-              There should be least one item.
+            <div className={
+              classNames({ 
+                'ty-planning__input--error': true, 
+                'ty-planning__input--error--active': (values.isSubmitted || !values.stories.isPristine) && !values.stories.isValid
+                }
+              )}>            
+                There should be least one item.
+            </div>
           </div>
         </div>
-      </div>
-      <div className="ty-planning__bottom">
-        <input type="submit" value="Start Session"></input>
-      </div>
-    </form>
+        <div className="ty-planning__bottom">
+          <input type="submit" value="Start Session"></input>
+        </div>
+      </form>
+  </>
   );
 }
 

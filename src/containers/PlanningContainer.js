@@ -2,17 +2,18 @@ import React from 'react';
 import { Component } from 'react';
 import Header from '../components/Header';
 import Planning from '../components/Planning';
+import database from '../database';
 
 class PlannigContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
+    saveToDB(obj) {
+      return database.collection("pokers").add(obj);
 
+  }
   render() {
     return (
       <>
         <Header />
-        <Planning />
+        <Planning saveToDB={this.saveToDB} />
       </>
     )
   }
