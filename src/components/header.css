@@ -1,4 +1,11 @@
 .ty-logo {
   width: 60px;
   font-size: 15px;
+  border: 2px solid darkblue;
+  text-align: center;
+
+}
+
+.ty-url {
+  float: right;
 }

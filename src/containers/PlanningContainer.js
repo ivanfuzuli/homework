@@ -5,10 +5,10 @@ import Planning from '../components/Planning';
 import database from '../database';
 
 class PlannigContainer extends Component {
-    saveToDB(obj) {
-      return database.collection("pokers").add(obj);
-
+  saveToDB(obj) {
+    return database.collection("pokers").add(obj);
   }
+
   render() {
     return (
       <>

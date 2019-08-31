@@ -1,5 +1,6 @@
 .story-list {
-  width: 320px;
+  min-width: 300px;
+  max-width: 500px;
 }
 
 table {

@@ -21,7 +21,7 @@ function validate(name, value) {
         return false;
       }
 
-      if (!isNaN(parseFloat(value)) && isFinite(value)) {
+      if (!isNaN(parseFloat(value)) && isFinite(value) && value > 0) {
         return true;
       }
 
@@ -40,6 +40,7 @@ function validate(name, value) {
 }
 function Plannig(props) {
   const [redirectId, setRedirect] = useState(false);
+  const [isSubmitting, setSubmitting] = useState(false);
 
   const [values, setValues] = useState({
     isSubmitted: false,
@@ -97,6 +98,8 @@ function Plannig(props) {
   const submit = (evt) => {
     evt.preventDefault();
     if (isFormValid()) {
+      setSubmitting(true);
+
       const stories = values.stories.value.split('\n');
       const obj = {
         sessionName: values.sessionName.value,
@@ -160,7 +163,10 @@ function Plannig(props) {
           </div>
         </div>
         <div className="ty-planning__bottom">
-          <input type="submit" value="Start Session"></input>
+          {isSubmitting ? 
+              <span>Wait...</span>
+            : <input type="submit" value="Start Session"></input>
+          }
         </div>
       </form>
   </>

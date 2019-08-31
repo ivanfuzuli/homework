@@ -6,8 +6,6 @@ import database from '../database';
 import Header from '../components/Header';
 import StoryList from '../components/StoryList';
 import ActiveStory from '../components/ActiveStory';
-import Panel from '../components/Panel';
-
 
 import '../components/scrum-master.css';
 
@@ -41,11 +39,6 @@ class PlannigContainer extends Component {
     });
   }
 
-  generateUrl() {
-    const url = `http://localhost:3000/voter/${this.id}`;
-    return url;
-  }
-
   render() {
     return (
       <div>
@@ -53,11 +46,10 @@ class PlannigContainer extends Component {
           <span>Loading...</span>
         ) : (
           <>
-          <Header url={this.generateUrl()} />
+          <Header />
           <div className="ty-scrum-container">
             <StoryList stories={this.state.data.stories} />
             <ActiveStory />
-            <Panel voterCount={this.state.data.voterCount} />
           </div>
         </>
         )}
