@@ -1,14 +1,31 @@
 import React from 'react';
-import './header.css';
+import styled from 'styled-components';
 
+const S = {};
+
+S.HeaderContainer = styled.div`
+  margin: 15px;
+`;
+S.Logo = styled.a`
+  width: 60px;
+  font-size: 15px;
+  border: 2px solid darkblue;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+`;
+
+S.Url = styled.span`
+  float: right;
+`
 function Header(props) {
   const url = props.url;
   return (
-    <div>
-      { url && <span className="ty-url">
-        Please share this url with teammates <a href={url}>{url}</a></span> }
-      <h1 className="ty-logo">Scrum Poker</h1>
-    </div>
+    <S.HeaderContainer>
+      { url && <S.Url className="ty-url">
+        Please share this url with teammates <a href={url}>{url}</a></S.Url> }
+      <S.Logo href="/">Scrum Poker</S.Logo>
+    </S.HeaderContainer>
   )
 }
 

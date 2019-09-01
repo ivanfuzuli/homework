@@ -8,8 +8,13 @@ import StoryList from '../components/StoryList';
 import ActiveStory from '../components/ActiveStory';
 import Panel from '../components/Panel';
 
+import styled from 'styled-components';
+const S = {};
 
-import '../components/scrum-master.css';
+S.Container = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
 
 class PlannigContainer extends Component {
   constructor(props) {
@@ -54,11 +59,11 @@ class PlannigContainer extends Component {
         ) : (
           <>
           <Header url={this.generateUrl()} />
-          <div className="ty-scrum-container">
+          <S.Container>
             <StoryList stories={this.state.data.stories} />
             <ActiveStory />
             <Panel voterCount={this.state.data.voterCount} />
-          </div>
+          </S.Container>
         </>
         )}
       </div>

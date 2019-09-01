@@ -1,9 +1,31 @@
 import React from 'react';
-import './panel.css';
+import styled from 'styled-components';
+
+const S = {};
+S.Panel = styled.div`
+  flex-grow: 1;
+  margin: 5px;
+
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+`;
 
 function Panel(props) {
   return (
-    <div className="ty-panel">
+    <S.Panel>
       <h3>Scrum MasterPanel</h3>
       <div>
         <span>Story 1 is active</span>
@@ -26,7 +48,7 @@ function Panel(props) {
 
         <span>You cannot end voting till each teammate vote.</span>
       </div>
-    </div>
+    </S.Panel>
   );
 }
 
