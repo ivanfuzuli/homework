@@ -3,16 +3,24 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  width: 300px;
+  max-width: 240px;
   flex-wrap: wrap;
 }
 
 .ty-active-story__box {
-  width: 50px;
+  width: 20px;
   padding: 15px;
   border: 2px solid #000;
   border-radius: 5px;
   text-align: center;
   margin: 5px;
   cursor: pointer;
+}
+
+.ty-active-story__box:hover {
+  background-color: #ddd;
+}
+
+.ty-active-story__box--active {
+  background-color: burlywood;
 }

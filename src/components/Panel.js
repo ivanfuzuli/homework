@@ -4,7 +4,7 @@ import './panel.css';
 function Panel(props) {
   return (
     <div className="ty-panel">
-      <h5>Scrum MasterPanel</h5>
+      <h3>Scrum MasterPanel</h3>
       <div>
         <span>Story 1 is active</span>
         <table>
